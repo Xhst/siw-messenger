@@ -37,7 +37,8 @@ public class ChatService {
     }
 
     public Chat getPrivateChatFromUsernames(String username1, String username2) throws NoSuchElementException {
-        return this.chatRepository.findByName(PrivateChat.nameFromUsernames(username1, username2)).orElseThrow();
+        return this.chatRepository.findByName(PrivateChat.nameFromUsernames(username1, username2))
+                .orElse(null);
     }
 
     public List<Chat> getUserChats(User user) {
