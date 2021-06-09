@@ -22,7 +22,8 @@ public class UserService {
 
 
     public User getUser(String username) throws NoSuchElementException {
-        return this.userRepository.findByUsername(username).orElseThrow();
+        return this.userRepository.findByUsername(username)
+                .orElse(null);
     }
 
     public boolean existsWithUsername(String username) {
