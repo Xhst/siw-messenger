@@ -32,7 +32,8 @@ public class ChatService {
     }
 
     public Chat getChat(Long id) throws NoSuchElementException {
-        return this.chatRepository.findById(id).orElseThrow();
+        return this.chatRepository.findById(id)
+                .orElse(null);
     }
 
     public Chat getPrivateChatFromUsernames(String username1, String username2) throws NoSuchElementException {
