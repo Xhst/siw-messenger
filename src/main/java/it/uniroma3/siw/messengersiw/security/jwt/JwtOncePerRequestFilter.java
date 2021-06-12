@@ -1,4 +1,4 @@
-package it.uniroma3.siw.messengersiw.service.security.jwt;
+package it.uniroma3.siw.messengersiw.security.jwt;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.uniroma3.siw.messengersiw.service.security.UserDetailsServiceImpl;
+import it.uniroma3.siw.messengersiw.security.UserDetailsServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /**
  * @author Mattia Micaloni
  */
-public class JwtAuthTokenFilter extends OncePerRequestFilter {
+public class JwtOncePerRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtils jwtUtils;

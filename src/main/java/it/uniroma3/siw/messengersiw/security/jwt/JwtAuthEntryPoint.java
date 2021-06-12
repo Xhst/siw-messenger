@@ -1,4 +1,4 @@
-package it.uniroma3.siw.messengersiw.service.security.jwt;
+package it.uniroma3.siw.messengersiw.security.jwt;
 
 import java.io.IOException;
 

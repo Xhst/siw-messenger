@@ -1,4 +1,4 @@
-package it.uniroma3.siw.messengersiw.service.security.jwt;
+package it.uniroma3.siw.messengersiw.security.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -7,7 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
-import it.uniroma3.siw.messengersiw.model.UserDetailsImpl;
+import it.uniroma3.siw.messengersiw.security.UserDetailsImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +32,9 @@ public class JwtUtils {
     @Value("${messengerSiw.jwt.expirationMs}")
     private int jwtExpirationMs;
 
+    public String getUsernameFromToken(String token) {
+        return Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(token).getBody().getSubject();
+    }
 
     public String generateToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -42,10 +45,6 @@ public class JwtUtils {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + this.jwtExpirationMs))
                 .compact();
-    }
-
-    public String getUsernameFromToken(String token) {
-        return Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean isTokenValid(String authToken) {

@@ -7,12 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.messaging.simp.user.DefaultUserDestinationResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.messaging.*;
+import org.springframework.web.socket.messaging.DefaultSimpUserRegistry;
 
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
@@ -29,7 +28,6 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public static final String CHAT_ENDPOINT = "siw-messenger";
 
     private final DefaultSimpUserRegistry userRegistry = new DefaultSimpUserRegistry();
-    private final DefaultUserDestinationResolver resolver = new DefaultUserDestinationResolver(userRegistry);
 
     @Autowired
     private WebSocketAuthInterceptor authInterceptorAdapter;

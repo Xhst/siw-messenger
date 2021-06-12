@@ -1,31 +1,36 @@
 package it.uniroma3.siw.messengersiw.controller;
 
-import it.uniroma3.siw.messengersiw.controller.validator.LoginValidator;
-import it.uniroma3.siw.messengersiw.controller.validator.RegisterValidator;
 import it.uniroma3.siw.messengersiw.message.incoming.LoginRequestDto;
 import it.uniroma3.siw.messengersiw.message.incoming.RegisterRequestDto;
 import it.uniroma3.siw.messengersiw.message.outgoing.JwtResponseDto;
 import it.uniroma3.siw.messengersiw.message.outgoing.MessageResponseDto;
 import it.uniroma3.siw.messengersiw.model.User;
-import it.uniroma3.siw.messengersiw.model.UserDetailsImpl;
-import it.uniroma3.siw.messengersiw.service.security.jwt.JwtUtils;
+import it.uniroma3.siw.messengersiw.security.UserDetailsImpl;
+import it.uniroma3.siw.messengersiw.security.jwt.JwtUtils;
 import it.uniroma3.siw.messengersiw.service.UserService;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -45,9 +50,6 @@ public class UserController {
 
     private final UserService userService;
 
-    private final LoginValidator loginValidator;
-    private final RegisterValidator registerValidator;
-
     private final JwtUtils jwtUtils;
 
 
@@ -57,16 +59,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
-        Errors result = new BeanPropertyBindingResult(request, request.getClass().getName());
-        this.loginValidator.validate(request, result);
-
-        if (result.hasErrors()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponseDto("Errors: "+ result.getGlobalError()));
-        }
-
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto request) {
         Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
@@ -89,16 +82,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDto request) {
-        Errors result = new BeanPropertyBindingResult(request, request.getClass().getName());
-        this.registerValidator.validate(request, result);
-
-        if (result.hasErrors()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponseDto("Errors: " + result.getAllErrors()));
-        }
-
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto request) {
         this.userService.save(
             new User(request.getUsername(),
                     request.getEmail(),
@@ -106,5 +90,20 @@ public class UserController {
         );
 
         return ResponseEntity.ok(new MessageResponseDto("User registered successfully!"));
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+
+            errors.put(fieldName, errorMessage);
+        });
+
+        return errors;
     }
 }

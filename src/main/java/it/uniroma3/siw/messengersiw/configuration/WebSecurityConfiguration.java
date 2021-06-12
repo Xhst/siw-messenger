@@ -1,8 +1,8 @@
 package it.uniroma3.siw.messengersiw.configuration;
 
-import it.uniroma3.siw.messengersiw.service.security.jwt.JwtAuthEntryPoint;
-import it.uniroma3.siw.messengersiw.service.security.jwt.JwtAuthTokenFilter;
-import it.uniroma3.siw.messengersiw.service.security.UserDetailsServiceImpl;
+import it.uniroma3.siw.messengersiw.security.jwt.JwtAuthEntryPoint;
+import it.uniroma3.siw.messengersiw.security.jwt.JwtOncePerRequestFilter;
+import it.uniroma3.siw.messengersiw.security.UserDetailsServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,8 +33,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JwtAuthEntryPoint unauthorizedHandler;
 
     @Bean
-    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-        return new JwtAuthTokenFilter();
+    public JwtOncePerRequestFilter authenticationJwtTokenFilter() {
+        return new JwtOncePerRequestFilter();
     }
 
     @Override

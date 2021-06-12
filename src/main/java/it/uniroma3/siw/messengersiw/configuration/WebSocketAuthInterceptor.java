@@ -1,6 +1,6 @@
 package it.uniroma3.siw.messengersiw.configuration;
 
-import it.uniroma3.siw.messengersiw.service.security.jwt.JwtUtils;
+import it.uniroma3.siw.messengersiw.security.jwt.JwtUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;

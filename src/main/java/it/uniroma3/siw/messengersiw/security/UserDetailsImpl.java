@@ -1,6 +1,8 @@
-package it.uniroma3.siw.messengersiw.model;
+package it.uniroma3.siw.messengersiw.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import it.uniroma3.siw.messengersiw.model.User;
 
 import lombok.Getter;
 

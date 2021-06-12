@@ -1,7 +1,6 @@
-package it.uniroma3.siw.messengersiw.service.security;
+package it.uniroma3.siw.messengersiw.security;
 
 import it.uniroma3.siw.messengersiw.model.User;
-import it.uniroma3.siw.messengersiw.model.UserDetailsImpl;
 import it.uniroma3.siw.messengersiw.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
