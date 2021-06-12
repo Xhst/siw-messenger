@@ -28,6 +28,11 @@ public class JwtOncePerRequestFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    private String parseJwt(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        return StringUtils.hasText(headerAuth) ? headerAuth : null;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -53,11 +58,5 @@ public class JwtOncePerRequestFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-
-        return StringUtils.hasText(headerAuth) ? headerAuth : null;
     }
 }

@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
 
 /**
  * @author Mattia Micaloni
@@ -21,7 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    public User getUser(String username) throws NoSuchElementException {
+    public User getUser(String username) {
         return this.userRepository.findByUsername(username)
                 .orElse(null);
     }

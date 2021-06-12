@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+
 
 /**
  * @author Mattia Micaloni
@@ -31,12 +31,12 @@ public class ChatService {
         return this.getPrivateChatFromUsernames(username1, username2) != null;
     }
 
-    public Chat getChat(Long id) throws NoSuchElementException {
+    public Chat getChat(Long id) {
         return this.chatRepository.findById(id)
                 .orElse(null);
     }
 
-    public Chat getPrivateChatFromUsernames(String username1, String username2) throws NoSuchElementException {
+    public Chat getPrivateChatFromUsernames(String username1, String username2) {
         return this.chatRepository.findByName(PrivateChat.nameFromUsernames(username1, username2))
                 .orElse(null);
     }

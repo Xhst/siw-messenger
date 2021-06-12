@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +44,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/auth")
-public class UserController {
+public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
@@ -60,6 +61,11 @@ public class UserController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto request) {
+
+        if (!this.userService.existsWithUsername(request.getUsername())) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 

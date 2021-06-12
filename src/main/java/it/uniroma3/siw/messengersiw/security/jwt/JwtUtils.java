@@ -1,12 +1,13 @@
 package it.uniroma3.siw.messengersiw.security.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-
 import it.uniroma3.siw.messengersiw.security.UserDetailsImpl;
 
 import org.slf4j.Logger;
@@ -32,8 +33,14 @@ public class JwtUtils {
     @Value("${messengerSiw.jwt.expirationMs}")
     private int jwtExpirationMs;
 
+    private Jws<Claims> decode(String token) {
+        return Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(token);
+    }
+
     public String getUsernameFromToken(String token) {
-        return Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(token).getBody().getSubject();
+        return this.decode(token)
+                .getBody()
+                .getSubject();
     }
 
     public String generateToken(Authentication authentication) {
@@ -47,9 +54,9 @@ public class JwtUtils {
                 .compact();
     }
 
-    public boolean isTokenValid(String authToken) {
+    public boolean isTokenValid(String token) {
         try {
-            Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(authToken);
+            this.decode(token);
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
