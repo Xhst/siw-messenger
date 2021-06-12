@@ -3,8 +3,8 @@ package it.uniroma3.siw.messengersiw.controller;
 import it.uniroma3.siw.messengersiw.message.incoming.AddGroupChatDto;
 import it.uniroma3.siw.messengersiw.message.incoming.AddPrivateChatDto;
 import it.uniroma3.siw.messengersiw.message.incoming.ChatMessageDto;
-import it.uniroma3.siw.messengersiw.message.outgoing.ChatDto;
-import it.uniroma3.siw.messengersiw.message.outgoing.MessageDeliveryDto;
+import it.uniroma3.siw.messengersiw.message.outgoing.ChatResponseDto;
+import it.uniroma3.siw.messengersiw.message.outgoing.ChatMessageResponseDto;
 import it.uniroma3.siw.messengersiw.model.Chat;
 import it.uniroma3.siw.messengersiw.model.GroupChat;
 import it.uniroma3.siw.messengersiw.model.Message;
@@ -62,10 +62,10 @@ public class ChatController {
         Chat chat = this.chatService.save(new PrivateChat(user1, user2));
 
         messaging.convertAndSendToUser(user1.getUsername(), "/queue/add_chat",
-                new ChatDto(chat.getId(), user2.getUsername(), false, ""));
+                new ChatResponseDto(chat.getId(), user2.getUsername(), false, ""));
 
         messaging.convertAndSendToUser(user2.getUsername(), "/queue/add_chat",
-                new ChatDto(chat.getId(), user1.getUsername(), false, ""));
+                new ChatResponseDto(chat.getId(), user1.getUsername(), false, ""));
     }
 
     /**
@@ -97,7 +97,7 @@ public class ChatController {
 
         for (User user : groupChatMembers) {
             messaging.convertAndSendToUser(user.getUsername(), "/queue/add_chat",
-                    new ChatDto(chat.getId(), request.getGroupName(), true, owner.getUsername()));
+                    new ChatResponseDto(chat.getId(), request.getGroupName(), true, owner.getUsername()));
         }
     }
 
@@ -123,7 +123,7 @@ public class ChatController {
             if (user.getUsername().equals(sender.getUsername())) continue;
 
             messaging.convertAndSendToUser(user.getUsername(), "/queue/message",
-                    new MessageDeliveryDto(
+                    new ChatMessageResponseDto(
                             recipient.getId(),
                             sender.getUsername(),
                             message.getText(),
@@ -141,10 +141,10 @@ public class ChatController {
      */
     @MessageMapping("/get_chats")
     @SendToUser("queue/chats")
-    public List<ChatDto> getChats(Principal principal) {
+    public List<ChatResponseDto> getChats(Principal principal) {
 
         User user = this.userService.getUser(principal.getName());
-        List<ChatDto> chats = new ArrayList<>();
+        List<ChatResponseDto> chats = new ArrayList<>();
 
         for (Chat chat : this.chatService.getUserChats(user)) {
             if (chat instanceof PrivateChat) {
@@ -152,11 +152,11 @@ public class ChatController {
                         .replace("-", "")
                         .replace(user.getUsername(), "");
 
-                chats.add(new ChatDto(chat.getId(), chatName, false, ""));
+                chats.add(new ChatResponseDto(chat.getId(), chatName, false, ""));
             }
 
             if (chat instanceof GroupChat) {
-                chats.add(new ChatDto(chat.getId(), chat.getName(), true, ((GroupChat) chat).getOwner().getUsername()));
+                chats.add(new ChatResponseDto(chat.getId(), chat.getName(), true, ((GroupChat) chat).getOwner().getUsername()));
             }
         }
         return chats;

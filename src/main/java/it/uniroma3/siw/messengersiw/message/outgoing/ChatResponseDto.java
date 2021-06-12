@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public class ChatDto {
+public class ChatResponseDto {
 
     private final long id;
     private final String name;

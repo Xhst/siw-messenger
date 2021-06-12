@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Getter
 @AllArgsConstructor
-public class MessageDeliveryDto {
+public class ChatMessageResponseDto {
 
     private final long id;
     private final String from;
