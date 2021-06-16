@@ -11,27 +11,19 @@ import it.uniroma3.siw.messengersiw.service.UserService;
 
 import lombok.AllArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -55,9 +47,9 @@ public class AuthController {
 
 
     /**
-     *
+     * Login user
      * @param request data transfer object
-     * @return
+     * @return ResponseEntity with JWT and user data
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto request) {
@@ -83,12 +75,18 @@ public class AuthController {
     }
 
     /**
-     *
+     * Register user
      * @param request data transfer object
      * @return
      */
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto request) {
+
+        if (this.userService.existsWithUsername(request.getUsername())) {
+            return ResponseEntity.badRequest().build();
+        }
+        System.out.println("REG");
+
         this.userService.save(
             new User(request.getUsername(),
                     request.getEmail(),
@@ -98,10 +96,13 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponseDto("User registered successfully!"));
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+
+    /*@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
+
+        System.out.println("PROVA");
 
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
@@ -110,6 +111,8 @@ public class AuthController {
             errors.put(fieldName, errorMessage);
         });
 
+        System.out.println(errors);
+
         return errors;
-    }
+    }*/
 }
