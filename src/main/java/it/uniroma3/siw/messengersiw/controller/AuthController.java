@@ -85,7 +85,6 @@ public class AuthController {
         if (this.userService.existsWithUsername(request.getUsername())) {
             return ResponseEntity.badRequest().build();
         }
-        System.out.println("REG");
 
         this.userService.save(
             new User(request.getUsername(),
@@ -95,24 +94,4 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponseDto("User registered successfully!"));
     }
-
-
-    /*@ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-
-        System.out.println("PROVA");
-
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-
-            errors.put(fieldName, errorMessage);
-        });
-
-        System.out.println(errors);
-
-        return errors;
-    }*/
 }

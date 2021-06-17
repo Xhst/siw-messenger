@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +20,6 @@ import java.util.List;
  */
 @Data
 @Entity
-@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
 
@@ -40,8 +40,13 @@ public class User {
     @ManyToMany(mappedBy = "members")
     private List<Chat> chats;
 
+    public User() {
+        this.chats = new ArrayList<>();
+    }
 
     public User(String username, String email, String password) {
+        this();
+
         this.username = username;
         this.email = email;
         this.password = password;
