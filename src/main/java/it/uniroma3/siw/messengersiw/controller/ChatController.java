@@ -10,6 +10,7 @@ import it.uniroma3.siw.messengersiw.model.GroupChat;
 import it.uniroma3.siw.messengersiw.model.Message;
 import it.uniroma3.siw.messengersiw.model.PrivateChat;
 import it.uniroma3.siw.messengersiw.model.User;
+import it.uniroma3.siw.messengersiw.service.MessageService;
 import it.uniroma3.siw.messengersiw.service.UserService;
 import it.uniroma3.siw.messengersiw.service.ChatService;
 
@@ -40,6 +41,7 @@ public class ChatController {
     private final SimpMessagingTemplate messaging;
 
     private final ChatService chatService;
+    private final MessageService messageService;
     private final UserService userService;
 
 
@@ -115,9 +117,7 @@ public class ChatController {
         User sender = this.userService.getUser(principal.getName());
         Chat recipient = this.chatService.getChat(request.getToChat());
 
-        Message message = new Message(sender, recipient, request.getMessage());
-
-        this.chatService.addMessageToChat(recipient, message);
+        Message message = this.messageService.addMessageToChat(sender, recipient, request.getMessage());
 
         for (User user : recipient.getMembers()) {
             if (user.getUsername().equals(sender.getUsername())) continue;

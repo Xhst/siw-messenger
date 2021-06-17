@@ -1,11 +1,9 @@
 package it.uniroma3.siw.messengersiw.service;
 
 import it.uniroma3.siw.messengersiw.model.Chat;
-import it.uniroma3.siw.messengersiw.model.Message;
 import it.uniroma3.siw.messengersiw.model.PrivateChat;
 import it.uniroma3.siw.messengersiw.model.User;
 import it.uniroma3.siw.messengersiw.repository.ChatRepository;
-import it.uniroma3.siw.messengersiw.repository.MessageRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -24,7 +22,6 @@ import java.util.List;
 public class ChatService {
 
     private final ChatRepository chatRepository;
-    private final MessageRepository messageRepository;
 
 
     public boolean privateChatExists(String username1, String username2) {
@@ -45,11 +42,6 @@ public class ChatService {
         return this.chatRepository.findAllByMembers(user);
     }
 
-    public void addMessageToChat(Chat chat, Message message) {
-        if (chat == null || message == null) return;
-
-        this.messageRepository.save(message);
-    }
 
     public Chat save(Chat chat) {
         return this.chatRepository.save(chat);
