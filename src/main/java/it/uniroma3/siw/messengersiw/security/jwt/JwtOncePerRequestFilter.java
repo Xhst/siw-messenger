@@ -18,6 +18,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
+ * Json Web Token Request Filter.
+ *
  * @author Mattia Micaloni
  */
 public class JwtOncePerRequestFilter extends OncePerRequestFilter {
@@ -28,6 +30,12 @@ public class JwtOncePerRequestFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * Parse JWT from the header 'Authorization' in the request
+     *
+     * @param request servlet request
+     * @return parsed JWT or null
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
 

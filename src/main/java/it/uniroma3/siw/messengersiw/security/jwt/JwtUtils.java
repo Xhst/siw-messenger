@@ -20,6 +20,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
+ * Json Web Token utils.
+ * It's used for generate or validate the token or to retrieve information contained in the subject.
+ *
  * @author Mattia Micaloni
  */
 @Component
@@ -37,12 +40,26 @@ public class JwtUtils {
         return Jwts.parser().setSigningKey(this.jwtSecretKey).parseClaimsJws(token);
     }
 
+    /**
+     * Get the username contained in the JWT's subject
+     *
+     * @param token JWT
+     * @return username
+     */
     public String getUsernameFromToken(String token) {
         return this.decode(token)
                 .getBody()
                 .getSubject();
     }
 
+    /**
+     * Generate a Json Web Token from the given authentication.
+     * It will be secured with SHA512 and a secret key given in the configuration.
+     * The principal username will be stored in the subject.
+     *
+     * @param authentication Spring security authentication principal
+     * @return JWT
+     */
     public String generateToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
@@ -54,6 +71,12 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * Check if the given token is valid or not.
+     *
+     * @param token JWT
+     * @return true if the token is valid, false otherwise.
+     */
     public boolean isTokenValid(String token) {
         try {
             this.decode(token);
