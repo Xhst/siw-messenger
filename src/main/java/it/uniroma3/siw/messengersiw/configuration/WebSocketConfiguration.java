@@ -29,8 +29,6 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
     public static final String CHAT_ENDPOINT = "siw-messenger";
 
-    private final DefaultSimpUserRegistry userRegistry = new DefaultSimpUserRegistry();
-
     @Autowired
     private WebSocketAuthInterceptor authInterceptorAdapter;
 
