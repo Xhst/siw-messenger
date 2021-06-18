@@ -1,6 +1,6 @@
 package it.uniroma3.siw.messengersiw.configuration;
 
-import it.uniroma3.siw.messengersiw.security.WebSocketAuthInterceptor;
+import it.uniroma3.siw.messengersiw.security.websocket.WebSocketAuthInterceptor;
 
 import lombok.AllArgsConstructor;
 

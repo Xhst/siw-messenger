@@ -1,4 +1,4 @@
-package it.uniroma3.siw.messengersiw.security;
+package it.uniroma3.siw.messengersiw.security.websocket;
 
 import it.uniroma3.siw.messengersiw.security.jwt.JwtUtils;
 
