@@ -1,4 +1,4 @@
-package it.uniroma3.siw.messengersiw.configuration;
+package it.uniroma3.siw.messengersiw.security;
 
 import it.uniroma3.siw.messengersiw.security.jwt.JwtUtils;
 

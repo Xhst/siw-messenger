@@ -1,5 +1,7 @@
 package it.uniroma3.siw.messengersiw.configuration;
 
+import it.uniroma3.siw.messengersiw.security.WebSocketAuthInterceptor;
+
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
