@@ -59,7 +59,8 @@ public class ChatController {
         User user1 = this.userService.getUser(principal.getName());
         User user2 = this.userService.getUser(request.getUsername().trim());
 
-        if (user2 == null || this.chatService.privateChatExists(user1.getUsername(), user2.getUsername())) return;
+        if (user2 == null || user1.equals(user2) ||
+                this.chatService.privateChatExists(user1.getUsername(), user2.getUsername())) return;
 
         Chat chat = this.chatService.save(new PrivateChat(user1, user2));
 
