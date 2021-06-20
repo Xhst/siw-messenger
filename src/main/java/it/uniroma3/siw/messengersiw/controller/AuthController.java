@@ -3,7 +3,7 @@ package it.uniroma3.siw.messengersiw.controller;
 import it.uniroma3.siw.messengersiw.message.incoming.LoginRequestDto;
 import it.uniroma3.siw.messengersiw.message.incoming.RegisterRequestDto;
 import it.uniroma3.siw.messengersiw.message.outgoing.JwtResponseDto;
-import it.uniroma3.siw.messengersiw.message.outgoing.MessageResponseDto;
+import it.uniroma3.siw.messengersiw.message.outgoing.SuccessResponseDto;
 import it.uniroma3.siw.messengersiw.model.User;
 import it.uniroma3.siw.messengersiw.security.UserDetailsImpl;
 import it.uniroma3.siw.messengersiw.security.jwt.JwtUtils;
@@ -92,6 +92,6 @@ public class AuthController {
                     this.passwordEncoder.encode(request.getPassword()))
         );
 
-        return ResponseEntity.ok(new MessageResponseDto("User registered successfully!"));
+        return ResponseEntity.ok(new SuccessResponseDto("register_success"));
     }
 }

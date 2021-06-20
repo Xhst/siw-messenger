@@ -10,10 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public class JwtResponseDto {
+public class SuccessResponseDto {
 
-    private String token;
-    private Long id;
-    private String username;
-    private String email;
+    private final String message;
 }
