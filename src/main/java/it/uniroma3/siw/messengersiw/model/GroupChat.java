@@ -9,9 +9,6 @@ import javax.persistence.ManyToOne;
 
 import java.util.Set;
 
-/**
- * @author Mattia Micaloni
- */
 @Data
 @Entity
 @NoArgsConstructor

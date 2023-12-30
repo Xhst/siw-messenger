@@ -16,9 +16,6 @@ import java.util.List;
 import java.util.Objects;
 
 
-/**
- * @author Mattia Micaloni
- */
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 

@@ -29,8 +29,6 @@ import javax.validation.Valid;
 /**
  * Rest controller for user authentication.
  * Contains methods for handling HTTP requests.
- *
- * @author Mattia Micaloni
  */
 @AllArgsConstructor
 @RestController

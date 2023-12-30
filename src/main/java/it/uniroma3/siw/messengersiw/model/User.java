@@ -14,9 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * @author Mattia Micaloni
- */
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

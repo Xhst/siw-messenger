@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-/**
- * @author Mattia Micaloni
- */
 @Data
 @Entity
 @NoArgsConstructor

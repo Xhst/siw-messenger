@@ -21,9 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author Mattia Micaloni
- */
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

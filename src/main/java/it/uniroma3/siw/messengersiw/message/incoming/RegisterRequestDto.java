@@ -11,8 +11,6 @@ import javax.validation.constraints.Pattern;
 
 /**
  * Data transfer object
- *
- * @author Mattia Micaloni
  */
 @AllArgsConstructor
 @EqualsAndHashCode

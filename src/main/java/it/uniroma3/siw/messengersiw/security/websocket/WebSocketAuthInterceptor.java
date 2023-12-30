@@ -12,9 +12,7 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-/**
- * @author Mattia Micaloni
- */
+
 @Component
 public class WebSocketAuthInterceptor implements ChannelInterceptor {
 

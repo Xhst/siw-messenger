@@ -12,9 +12,6 @@ import javax.persistence.ManyToOne;
 
 import java.util.Date;
 
-/**
- * @author Mattia Micaloni
- */
 @Data
 @Entity
 @NoArgsConstructor

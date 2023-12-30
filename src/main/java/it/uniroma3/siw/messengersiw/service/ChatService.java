@@ -13,9 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-/**
- * @author Mattia Micaloni
- */
 @AllArgsConstructor
 @Transactional
 @Service

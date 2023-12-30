@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
 
 /**
  * Handle exceptions across the whole application
- *
- * @author Mattia Micaloni
  */
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {

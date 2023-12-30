@@ -31,8 +31,6 @@ import java.util.Set;
  * Web socket controller for chat.
  * Contains message-handling methods mapped with messages by matching the declared patterns to a destination
  * extracted from the message.
- *
- * @author Mattia Micaloni
  */
 @AllArgsConstructor
 @Controller

@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
  * Json Web Token Entry point.
  * If an AuthenticationException is detected, the filter will launch the authenticationEntryPoint.
  * It sends error response to unauthorized clients.
- *
- * @author Mattia Micaloni
  */
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {

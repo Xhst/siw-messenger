@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-/**
- * @author Mattia Micaloni
- */
 @AllArgsConstructor
 @Transactional
 @Service

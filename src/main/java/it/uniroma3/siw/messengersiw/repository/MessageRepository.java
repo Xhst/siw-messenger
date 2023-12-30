@@ -9,8 +9,6 @@ import java.util.List;
 
 /**
  * Message repository
- *
- * @author Mattia Micaloni
  */
 @Repository
 public interface MessageRepository extends CrudRepository<Message, Long> {

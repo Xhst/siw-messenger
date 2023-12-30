@@ -5,8 +5,6 @@ import lombok.Getter;
 
 /**
  * Data transfer object
- *
- * @author Mattia Micaloni
  */
 @Getter
 @AllArgsConstructor

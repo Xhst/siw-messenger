@@ -11,8 +11,6 @@ import java.util.Optional;
 
 /**
  * Chat repository
- *
- * @author Mattia Micaloni
  */
 @Repository
 public interface ChatRepository extends CrudRepository<Chat, Long> {

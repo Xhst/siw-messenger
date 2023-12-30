@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Data transfer object
- *
- * @author Mattia Micaloni
  */
 @Getter
 @NoArgsConstructor

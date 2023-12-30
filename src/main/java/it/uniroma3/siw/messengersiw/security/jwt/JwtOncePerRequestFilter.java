@@ -19,8 +19,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Json Web Token Request Filter.
- *
- * @author Mattia Micaloni
  */
 public class JwtOncePerRequestFilter extends OncePerRequestFilter {
 

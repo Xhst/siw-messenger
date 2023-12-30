@@ -10,8 +10,6 @@ import java.util.Optional;
 
 /**
  * User repository
- *
- * @author Mattia Micaloni
  */
 @Repository
 @Transactional(readOnly = true)

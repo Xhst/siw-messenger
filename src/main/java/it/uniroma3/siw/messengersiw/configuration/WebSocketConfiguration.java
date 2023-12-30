@@ -16,9 +16,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
-/**
- * @author Mattia Micaloni
- */
+
 @Configuration
 @EnableScheduling
 @EnableWebSocketMessageBroker

@@ -23,8 +23,6 @@ import java.util.Date;
 /**
  * Json Web Token utils.
  * It's used for generate or validate the token or to retrieve information contained in the subject.
- *
- * @author Mattia Micaloni
  */
 @Component
 public class JwtUtils {

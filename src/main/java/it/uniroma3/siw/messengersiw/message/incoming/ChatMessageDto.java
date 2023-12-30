@@ -7,8 +7,6 @@ import lombok.ToString;
 
 /**
  * Data transfer object
- *
- * @author Mattia Micaloni
  */
 @EqualsAndHashCode
 @ToString

@@ -7,8 +7,6 @@ import java.util.Date;
 
 /**
  * Data transfer object
- *
- * @author Mattia Micaloni
  */
 @Getter
 @AllArgsConstructor
